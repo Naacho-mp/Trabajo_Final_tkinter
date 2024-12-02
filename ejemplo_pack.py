@@ -84,3 +84,4 @@ resul_descripcion.pack(padx=25, pady=5, anchor="w")
 # label_imagen.pack()
 
 ventana.mainloop()
+# comentario de prueba 
