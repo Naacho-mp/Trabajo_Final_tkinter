@@ -8,6 +8,10 @@ class Planta:
         self.family = family
         self.score = score
         self.image_path = image_path
+    
+    def pasar_a_lista(self):
+        return[self.common_name, self.scientific_name, self.family, self.score, self.image_path]
+
 
 # Clase para crear una tarjeta con la información de la planta
 class PlantCard(tk.Frame):
@@ -57,7 +61,7 @@ if __name__ == "__main__":
         scientific_name="Lapageria rosea Ruiz & Pav.",
         family="Philesiaceae",
         score=0.80134,
-        image_path="C:/Users/nicol/Desktop/5519240445_8746faf3f0_z.jpg"  # Cambia esto a la ruta de tu imagen
+        image_path="planta6.jpg"  # Cambia esto a la ruta de tu imagen
     )
 
     plant_card = PlantCard(root, planta)
