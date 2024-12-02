@@ -41,6 +41,25 @@ def crear_pdf(plantas):
     pdf.output('hoja2.pdf')
 
 if __name__ == "__main__" :
+
+    plantas = [ 
+        Planta(
+            common_name="Chilean-bellflower",
+            scientific_name="Lapageria rosea Ruiz & Pav.",
+            family="Philesiaceae",
+            score=0.80134,
+            image_path="planta6.jpg"  
+        ),
+        Planta(
+            common_name="dadasdasda",
+            scientific_name="Lapageria rosea Ruiz & Pav.",
+            family="Philesiaceae",
+            score=0.80134,
+            image_path="planta7.jpg"  
+        )        
+    ]
+
+
     nombre1  = "copihue"
     nombre_cient = "asd copifues"
     descr = "flor nacional de Chile"
@@ -49,4 +68,4 @@ if __name__ == "__main__" :
     nombre_cient2 = "rosaleus"
     descr2 = "rosa de color x y demases"
     
-    crear_pdf(nombre1,nombre2,nombre_cient, nombre_cient2, descr, descr2)
+    crear_pdf(plantas)
