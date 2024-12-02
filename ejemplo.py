@@ -1,5 +1,7 @@
 import tkinter as tk
 
+#edicion
+
 ventana = tk.Tk() # Acá tenemos nuestro objeto ventana. Es propio del paquete.␣
 
 ventana.title("Plant Review") # Este es un método
