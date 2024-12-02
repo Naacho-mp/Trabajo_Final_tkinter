@@ -25,17 +25,16 @@ def crear_pdf(plantas):
     #AGREGAR Título
     agregar_titulo(pdf, 'Informe de Plantas', 80, 20)
 
-    y_offset = 40  # Empezamos a escribir en el eje Y
+    diff_y = 40  # Empezamos a escribir en el eje Y
 
     for planta in plantas:
-        # Agregar información de la planta
-        agregar_texto(pdf, f'Best Match "{planta.score}"', 20, y_offset)
-        agregar_imagen(pdf, planta.image_path, 20, y_offset + 10, 50, 55)
-        agregar_texto(pdf, f"Nombre común: {planta.common_name}", 75, y_offset + 60)
-        agregar_texto(pdf, f"Nombre Cientifico: {planta.scientific_name}", 75, y_offset + 70)
-        agregar_texto(pdf, f"Descripción: {planta.family}", 75, y_offset + 80)
+        agregar_texto(pdf, f'Best Match {planta.score}', 20, diff_y)
+        agregar_imagen(pdf, planta.image_path, 20, diff_y + 5, 50, 55) 
+        agregar_texto(pdf, f"Nombre común: {planta.common_name}", 75, diff_y + 15)
+        agregar_texto(pdf, f"Nombre Cientifico: {planta.scientific_name}", 75, diff_y + 25)
+        agregar_texto(pdf, f"Descripción: {planta.family}", 75, diff_y + 35)
 
-        y_offset += 100
+        diff_y += 100  
 
     # GUARDAR
     pdf.output('hoja2.pdf')
@@ -58,14 +57,5 @@ if __name__ == "__main__" :
             image_path="planta7.jpg"  
         )        
     ]
-
-
-    nombre1  = "copihue"
-    nombre_cient = "asd copifues"
-    descr = "flor nacional de Chile"
-
-    nombre2 = "rosa"
-    nombre_cient2 = "rosaleus"
-    descr2 = "rosa de color x y demases"
     
     crear_pdf(plantas)
