@@ -104,9 +104,6 @@ boton3.config(fg="black", bg="OliveDrab1", font=("Times New Roman", 10,"bold"))
 boton3.grid(row=5, column= 1,padx=45, sticky="w") 
 
 
-
-
-
 #INSERTAR IMAGEN
 # imagen = tk.PhotoImage(file="icono_plant.ico")
 # label_imagen = tk.Label(ventana, image=imagen)
