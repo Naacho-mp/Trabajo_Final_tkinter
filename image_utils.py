@@ -3,21 +3,14 @@ import json
 from tkinter import filedialog
 from planta import Planta
 
-# Función que carga la imagen desde el sistema de archivos
-
-# Función que carga la imagen desde el sistema de archivos
 def cargar_imagen():
     image_path = filedialog.askopenfilename(filetypes=[("Imagenes", "*.jpg;*.jpeg;*.png")])
-    #if image_path:
-    #    label_imagen.config(text="Imagen cargada: " + image_path.split("/")[-1])
     return image_path
-
 
 API_KEY = "2b10UgruUpKmv00I2ZKKWnlo8e"
 PROJECT = "all"
 api_endpoint = f"https://my-api.plantnet.org/v2/identify/{PROJECT}?api-key={API_KEY}&include-related-images=true"
 
-# Función para analizar la imagen sin tocar la UI ni usar variables globales
 def analizar_imagen(image_path):
     if not image_path:
         print("No se ha cargado ninguna imagen.")
