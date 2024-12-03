@@ -55,10 +55,6 @@ class AnalizadorPlantas:
                     print(f"Error en la solicitud: {response.status_code}")
         except requests.exceptions.RequestException as e:
             print(f"Error en la solicitud HTTP: {e}")
-        except FileNotFoundError:
-            print(f"No se encuentra el archivo: {image_path}")
-        except Exception as e:
-            print(f"Error al analizar la imagen: {e}")
         return None
 
     def obtener_plantas_por_directorio(self, ruta_directorio):
