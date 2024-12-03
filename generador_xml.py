@@ -1,40 +1,40 @@
 import xml.etree.ElementTree as ET
 from planta import Planta
+from generador_reporte import GeneradorReporte
 
-
-# Clase GeneradorReporteXML
-class GeneradorReporteXML:
+class GeneradorReporteXML(GeneradorReporte):
     def __init__(self, plantas=None):
-        # Si no se pasa ninguna lista, inicializa una lista vacía
-        self.plantas = plantas if plantas is not None else []
+        super().__init__(plantas)
 
-    # Sobrecarga del operador '+' para agregar una planta
+    def generar_reporte(self, filename="reporte_plantas.xml"):
+        root = ET.Element("plantas")
+
+        for planta in self.plantas:
+            planta_elem = ET.SubElement(root, "planta")
+            ET.SubElement(planta_elem, "common_name").text = planta.common_name
+            ET.SubElement(planta_elem, "scientific_name").text = planta.scientific_name
+            ET.SubElement(planta_elem, "family").text = planta.family
+            ET.SubElement(planta_elem, "score").text = str(planta.score)
+            ET.SubElement(planta_elem, "image_path").text = planta.image_path
+
+        self.guardar_reporte(root, filename)
+
+    def guardar_reporte(self, root, filename):
+        tree = ET.ElementTree(root)
+        tree.write(filename)
+        print(f"Reporte XML generado: {filename}")
+
     def __add__(self, planta):
+        """ Sobrecarga del operador '+' para agregar una planta al reporte XML """
         if isinstance(planta, Planta):
             self.plantas.append(planta)
         return self
 
-    # Sobrecarga del operador '-' para eliminar una planta
     def __sub__(self, planta):
+        """ Sobrecarga del operador '-' para eliminar una planta del reporte XML """
         if isinstance(planta, Planta) and planta in self.plantas:
             self.plantas.remove(planta)
         return self
-
-    # Método para generar el reporte XML
-    def generar_reporte(self, filename="reporte_plantas.xml"):
-        root = ET.Element("reporte_plantas")
-        
-        for planta in self.plantas:
-            planta_element = ET.SubElement(root, "planta")
-            ET.SubElement(planta_element, "nombre_comun").text = planta.common_name
-            ET.SubElement(planta_element, "nombre_cientifico").text = planta.scientific_name
-            ET.SubElement(planta_element, "familia").text = planta.family
-            ET.SubElement(planta_element, "coincidencia").text = str(planta.score * 100)  # Porcentaje de coincidencia
-            ET.SubElement(planta_element, "ruta_imagen").text = planta.image_path
-        
-        tree = ET.ElementTree(root)
-        tree.write(filename)
-        print(f"Reporte generado: {filename}")
 
 
 # Ejemplo de uso

@@ -1,25 +1,11 @@
 from fpdf import FPDF
-from planta import Planta
+from planta import Planta  # Asegúrate de tener la clase Planta definida
+from generador_reporte import GeneradorReporte
 
-# Clase GeneradorReportePDF
-class GeneradorReportePDF:
+class GeneradorReportePDF(GeneradorReporte):
     def __init__(self, plantas=None):
-        # Si no se pasa ninguna lista, inicializa una lista vacía
-        self.plantas = plantas if plantas is not None else []
+        super().__init__(plantas)
 
-    # Sobrecarga del operador '+' para agregar una planta
-    def __add__(self, planta):
-        if isinstance(planta, Planta):
-            self.plantas.append(planta)
-        return self
-
-    # Sobrecarga del operador '-' para eliminar una planta
-    def __sub__(self, planta):
-        if isinstance(planta, Planta) and planta in self.plantas:
-            self.plantas.remove(planta)
-        return self
-
-    # Método para generar el reporte PDF
     def generar_reporte(self, filename="reporte_plantas.pdf"):
         pdf = FPDF(orientation="P", unit="mm", format="Letter")
         pdf.add_page()
@@ -30,16 +16,17 @@ class GeneradorReportePDF:
         diff_y = 40  # Empezamos a escribir en el eje Y
 
         for planta in self.plantas:
-            # Agregar información de cada planta
             self.agregar_texto(pdf, f"Best Match: {planta.score*100:.2f}%", 20, diff_y)
             self.agregar_imagen(pdf, planta.image_path, 20, diff_y + 5, 50, 55)
             self.agregar_texto(pdf, f"Nombre común: {planta.common_name}", 75, diff_y + 15)
             self.agregar_texto(pdf, f"Nombre Científico: {planta.scientific_name}", 75, diff_y + 25)
             self.agregar_texto(pdf, f"Familia: {planta.family}", 75, diff_y + 35)
 
-            diff_y += 70  # Desplazar hacia abajo para la siguiente planta
+            diff_y += 70
 
-        # Guardar el PDF generado
+        self.guardar_reporte(pdf, filename)
+
+    def guardar_reporte(self, pdf, filename):
         pdf.output(filename)
         print(f"Reporte PDF generado: {filename}")
 
@@ -56,6 +43,18 @@ class GeneradorReportePDF:
             pdf.image(imagen, x, y, w, h)
         except Exception as e:
             print(f"Error al agregar imagen: {e}")
+
+    def __add__(self, planta):
+        """ Sobrecarga del operador '+' para agregar una planta al reporte PDF """
+        if isinstance(planta, Planta):
+            self.plantas.append(planta)
+        return self
+
+    def __sub__(self, planta):
+        """ Sobrecarga del operador '-' para eliminar una planta del reporte PDF """
+        if isinstance(planta, Planta) and planta in self.plantas:
+            self.plantas.remove(planta)
+        return self
 
 # Ejemplo de uso
 planta1 = Planta("Rosa", "Rosa rubiginosa", "Rosaceae", 0.95, "C:/Users/nicol/Desktop/5519240445_8746faf3f0_z.jpg")

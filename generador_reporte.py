@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from Planta import Planta  # Asegúrate de tener la clase Planta definida
+from planta import Planta  # Asegúrate de tener la clase Planta definida
 
 # Clase abstracta GeneradorReporte
 class GeneradorReporte(ABC):
@@ -16,3 +16,6 @@ class GeneradorReporte(ABC):
     def guardar_reporte(self, filename):
         """ Método para guardar el reporte generado """
         pass
+
+
+

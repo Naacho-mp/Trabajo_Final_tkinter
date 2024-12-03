@@ -1,1 +1,1 @@
-<reporte_plantas><planta><nombre_comun>Tulip&#225;n</nombre_comun><nombre_cientifico>Tulipa</nombre_cientifico><familia>Liliaceae</familia><coincidencia>88.0</coincidencia><ruta_imagen>/ruta/a/imagen2.jpg</ruta_imagen></planta></reporte_plantas>
+<plantas><planta><common_name>Tulip&#225;n</common_name><scientific_name>Tulipa</scientific_name><family>Liliaceae</family><score>0.88</score><image_path>/ruta/a/imagen2.jpg</image_path></planta></plantas>

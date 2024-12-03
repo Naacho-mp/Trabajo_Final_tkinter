@@ -1,16 +1,16 @@
 [
     {
-        "nombre_comun": "Rosa",
-        "nombre_cientifico": "Rosa rubiginosa",
-        "familia": "Rosaceae",
-        "coincidencia": 95.0,
-        "ruta_imagen": "/ruta/a/imagen1.jpg"
+        "common_name": "Rosa",
+        "scientific_name": "Rosa rubiginosa",
+        "family": "Rosaceae",
+        "score": 0.95,
+        "image_path": "c:/Users/nicol/Desktop/5519240445_8746faf3f0_z.jpg"
     },
     {
-        "nombre_comun": "Tulip\u00e1n",
-        "nombre_cientifico": "Tulipa",
-        "familia": "Liliaceae",
-        "coincidencia": 88.0,
-        "ruta_imagen": "/ruta/a/imagen2.jpg"
+        "common_name": "Tulip\u00e1n",
+        "scientific_name": "Tulipa",
+        "family": "Liliaceae",
+        "score": 0.88,
+        "image_path": "c:/Users/nicol/Desktop/5519240445_8746faf3f0_z.jpg"
     }
 ]

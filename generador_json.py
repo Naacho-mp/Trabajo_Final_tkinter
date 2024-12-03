@@ -1,43 +1,31 @@
 import json
 from planta import Planta
+from generador_reporte import GeneradorReporte
 
-# Clase GeneradorReporteJSON
-class GeneradorReporteJSON:
+class GeneradorReporteJSON(GeneradorReporte):
     def __init__(self, plantas=None):
-        # Si no se pasa ninguna lista, inicializa una lista vacía
-        self.plantas = plantas if plantas is not None else []
+        super().__init__(plantas)
 
-    # Sobrecarga del operador '+' para agregar una planta
+    def generar_reporte(self, filename="reporte_plantas.json"):
+        plantas_dict = [planta.__dict__ for planta in self.plantas]
+        self.guardar_reporte(plantas_dict, filename)
+
+    def guardar_reporte(self, data, filename):
+        with open(filename, 'w') as f:
+            json.dump(data, f, indent=4)
+        print(f"Reporte JSON generado: {filename}")
+
     def __add__(self, planta):
+        """ Sobrecarga del operador '+' para agregar una planta al reporte JSON """
         if isinstance(planta, Planta):
             self.plantas.append(planta)
         return self
 
-    # Sobrecarga del operador '-' para eliminar una planta
     def __sub__(self, planta):
+        """ Sobrecarga del operador '-' para eliminar una planta del reporte JSON """
         if isinstance(planta, Planta) and planta in self.plantas:
             self.plantas.remove(planta)
         return self
-
-    # Método para generar el reporte JSON
-    def generar_reporte(self, filename="reporte_plantas.json"):
-        plantas_dict = []
-        
-        for planta in self.plantas:
-            planta_info = {
-                "nombre_comun": planta.common_name,
-                "nombre_cientifico": planta.scientific_name,
-                "familia": planta.family,
-                "coincidencia": planta.score * 100,  # Porcentaje de coincidencia
-                "ruta_imagen": planta.image_path
-            }
-            plantas_dict.append(planta_info)
-        
-        with open(filename, "w") as json_file:
-            json.dump(plantas_dict, json_file, indent=4)
-        
-        print(f"Reporte generado: {filename}")
-
 
 # Ejemplo de uso
 planta1 = Planta("Rosa", "Rosa rubiginosa", "Rosaceae", 0.95, "/ruta/a/imagen1.jpg")
