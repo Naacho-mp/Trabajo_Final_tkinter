@@ -1,0 +1,6 @@
+Pillow   # Para el manejo de imágenes
+requests # Para realizar peticiones HTTP
+fpdf     # Para generar reportes PDF
+
+# Comando para instalar las dependencias:
+pip install Pillow requests fpdf
