@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
+from PIL import Image, ImageTk
 
 from planta import Planta
 from plant_card import PlantCard
@@ -9,9 +10,24 @@ from analizador_imagenes import AnalizadorPlantas
 from generador_pdf import GeneradorReportePDF
 from generador_json import GeneradorReporteJSON
 from generador_xml import GeneradorReporteXML
-
 def cargar_imagen():
+    global image_path, img_label  # Se agrega una variable global para la etiqueta de la imagen
     image_path = filedialog.askopenfilename(filetypes=[("Imagenes", "*.jpg;*.jpeg;*.png")])
+    
+    if image_path:
+        # Cargar la imagen con PIL
+        image = Image.open(image_path)
+        image = image.resize((200, 200))  # Redimensionar la imagen para que quepa en el espacio disponible
+        photo = ImageTk.PhotoImage(image)
+        
+        # Mostrar la imagen en el label
+        if 'img_label' in globals():
+            img_label.config(image=photo)  # Actualizar la imagen si ya existe el label
+        else:
+            img_label = tk.Label(ventana, image=photo)
+            img_label.image = photo  # Necesario para mantener una referencia a la imagen
+            img_label.grid(row=6, column=0, padx=150, pady=15)
+
     return image_path
 
 def cambiar_color():
