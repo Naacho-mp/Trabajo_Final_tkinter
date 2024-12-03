@@ -7,22 +7,27 @@ class GeneradorReportePDF(GeneradorReporte):
         super().__init__(plantas)
 
     def generar_reporte(self, filename="reporte_plantas.pdf"):
-        pdf = FPDF(orientation="P", unit="mm", format="Letter")
+        pdf = FPDF(orientation="P", unit="mm", format="A4")
         pdf.add_page()
 
         # Agregar título al documento
         self.agregar_titulo(pdf, "Informe de Plantas", 80, 20)
 
         diff_y = 40  # Empezamos a escribir en el eje Y
+        margen_inferior = 270 
 
         for planta in self.plantas:
-            self.agregar_texto(pdf, f"Best Match: {planta.score*100:.2f}%", 20, diff_y)
-            self.agregar_imagen(pdf, planta.image_path, 20, diff_y + 5, 50, 55)
-            self.agregar_texto(pdf, f"Nombre común: {planta.common_name}", 75, diff_y + 15)
-            self.agregar_texto(pdf, f"Nombre Científico: {planta.scientific_name}", 75, diff_y + 25)
-            self.agregar_texto(pdf, f"Familia: {planta.family}", 75, diff_y + 35)
+            if diff_y + 50 > margen_inferior:
+                pdf.add_page()
+                diff_y = 20
 
-            diff_y += 70
+            self.agregar_texto(pdf, f'Mejor Resultado: {planta.score}',75, diff_y + 35)
+            self.agregar_imagen(pdf, planta.image_path, 20, diff_y + 5, 50, 55)
+            self.agregar_texto(pdf, f"Nombre común: {planta.common_name}",20, diff_y)
+            self.agregar_texto(pdf, f"Nombre Cientifico: {planta.scientific_name}", 75, diff_y + 15)
+            self.agregar_texto(pdf, f"Familia: {planta.family}",75, diff_y + 25)
+
+            diff_y += 80
 
         self.guardar_reporte(pdf, filename)
 
