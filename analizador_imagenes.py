@@ -12,13 +12,10 @@ class AnalizadorPlantas:
         pass
 
     def obtener_rutas_imagenes(self, ruta_directorio):
-        try:
-            ruta_directorio = Path(ruta_directorio)
-            nombres_imagenes = [archivo.name for archivo in ruta_directorio.iterdir() if archivo.is_file() and archivo.name.endswith(('.jpg', '.png'))]
-            return [str(ruta_directorio / i) for i in nombres_imagenes]
-        except Exception as ex:
-            print(f"Error al obtener las imágenes: {str(ex)}")
-            return []
+        ruta_directorio = Path(ruta_directorio)
+        nombres_imagenes = [archivo.name for archivo in ruta_directorio.iterdir() if archivo.is_file() and archivo.name.endswith(('.jpg', '.png'))]
+        return [str(ruta_directorio / i) for i in nombres_imagenes]
+    
 
     def analizar_imagen(self, image_path):
         """
