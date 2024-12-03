@@ -1,7 +1,6 @@
 import requests
 import json
 from planta import Planta
-from nombre_archivos import obtener_rutas_imagenes
 from pathlib import Path
 
 class AnalizadorPlantas:
@@ -11,6 +10,24 @@ class AnalizadorPlantas:
 
     def __init__(self):
         pass
+
+    def obtener_rutas_imagenes(self, ruta_directorio):
+        ruta_directorio = Path(ruta_directorio)
+        nombres_archivos = [archivo.name for archivo in ruta_directorio.iterdir() if archivo.is_file()]   
+
+        nombres_imagenes = []
+        for i in nombres_archivos:
+            if i.endswith(('.jpg', '.png')):
+                nombres_imagenes.append(i)
+
+        rutas_imagenes = []
+        for i in nombres_imagenes:
+            rutas_imagenes.append(ruta_directorio / i)
+
+        #convertir rutas a str
+        rutas_imagenes = [str(ruta) for ruta in rutas_imagenes]
+
+        return rutas_imagenes
 
     def analizar_imagen(self, image_path):
         """
@@ -58,7 +75,7 @@ class AnalizadorPlantas:
         Obtiene las imágenes del directorio especificado y devuelve una lista de instancias de Planta.
         """
         # Obtener las rutas de las imágenes desde la función proporcionada
-        rutas_imagenes = obtener_rutas_imagenes(ruta_directorio)
+        rutas_imagenes = self.obtener_rutas_imagenes(ruta_directorio)
 
         plantas = []
         for ruta_imagen in rutas_imagenes:
@@ -76,20 +93,3 @@ class AnalizadorPlantas:
 
         return plantas
 
-    def obtener_rutas_imagenes(ruta_directorio):
-        ruta_directorio = Path(ruta_directorio)
-        nombres_archivos = [archivo.name for archivo in ruta_directorio.iterdir() if archivo.is_file()]   
-
-        nombres_imagenes = []
-        for i in nombres_archivos:
-            if i.endswith(('.jpg', '.png')):
-                nombres_imagenes.append(i)
-
-        rutas_imagenes = []
-        for i in nombres_imagenes:
-            rutas_imagenes.append(ruta_directorio / i)
-
-        #convertir rutas a str
-        rutas_imagenes = [str(ruta) for ruta in rutas_imagenes]
-
-        return rutas_imagenes

@@ -27,6 +27,8 @@ class GeneradorReporteJSON(GeneradorReporte):
             self.plantas.remove(planta)
         return self
 
+
+"""
 # Ejemplo de uso
 planta1 = Planta("Rosa", "Rosa rubiginosa", "Rosaceae", 0.95, "/ruta/a/imagen1.jpg")
 planta2 = Planta("Tulipán", "Tulipa", "Liliaceae", 0.88, "/ruta/a/imagen2.jpg")
@@ -46,3 +48,5 @@ generador = generador - planta1
 
 # Generar el reporte JSON después de eliminar una planta
 generador.generar_reporte("reporte_actualizado.json")
+
+"""

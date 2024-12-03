@@ -1,16 +1,16 @@
 [
     {
-        "common_name": "Rosa",
-        "scientific_name": "Rosa rubiginosa",
-        "family": "Rosaceae",
-        "score": 0.95,
-        "image_path": "c:/Users/nicol/Desktop/5519240445_8746faf3f0_z.jpg"
+        "common_name": "Lily-of-the-Nile",
+        "scientific_name": "Agapanthus africanus",
+        "family": "Amaryllidaceae",
+        "score": 0.61455,
+        "image_path": "C:\\Home\\plantasUniversidad\\planta6.jpg"
     },
     {
-        "common_name": "Tulip\u00e1n",
-        "scientific_name": "Tulipa",
-        "family": "Liliaceae",
-        "score": 0.88,
-        "image_path": "c:/Users/nicol/Desktop/5519240445_8746faf3f0_z.jpg"
+        "common_name": "French rose",
+        "scientific_name": "Rosa gallica",
+        "family": "Rosaceae",
+        "score": 0.33865,
+        "image_path": "C:\\Home\\plantasUniversidad\\planta7.jpg"
     }
 ]
