@@ -12,22 +12,13 @@ class AnalizadorPlantas:
         pass
 
     def obtener_rutas_imagenes(self, ruta_directorio):
-        ruta_directorio = Path(ruta_directorio)
-        nombres_archivos = [archivo.name for archivo in ruta_directorio.iterdir() if archivo.is_file()]   
-
-        nombres_imagenes = []
-        for i in nombres_archivos:
-            if i.endswith(('.jpg', '.png')):
-                nombres_imagenes.append(i)
-
-        rutas_imagenes = []
-        for i in nombres_imagenes:
-            rutas_imagenes.append(ruta_directorio / i)
-
-        #convertir rutas a str
-        rutas_imagenes = [str(ruta) for ruta in rutas_imagenes]
-
-        return rutas_imagenes
+        try:
+            ruta_directorio = Path(ruta_directorio)
+            nombres_imagenes = [archivo.name for archivo in ruta_directorio.iterdir() if archivo.is_file() and archivo.name.endswith(('.jpg', '.png'))]
+            return [str(ruta_directorio / i) for i in nombres_imagenes]
+        except Exception as ex:
+            print(f"Error al obtener las imágenes: {str(ex)}")
+            return []
 
     def analizar_imagen(self, image_path):
         """
@@ -37,59 +28,46 @@ class AnalizadorPlantas:
             print("No se ha cargado ninguna imagen.")
             return None
 
-        # Abrir la imagen y preparar la solicitud
-        with open(image_path, 'rb') as image_data:
-            data = {'organs': ['flower']}
-            files = [('images', (image_path, image_data))]
+        try:
+            with open(image_path, 'rb') as image_data:
+                data = {'organs': ['flower']}
+                files = [('images', (image_path, image_data))]
 
-            req = requests.Request('POST', url=self.api_endpoint, files=files, data=data)
-            prepared = req.prepare()
+                req = requests.Request('POST', url=self.api_endpoint, files=files, data=data)
+                prepared = req.prepare()
+                s = requests.Session()
+                response = s.send(prepared)
 
-            s = requests.Session()
-            response = s.send(prepared)
-
-            # Si la respuesta es exitosa, procesamos el JSON
-            if response.status_code == 200:
-                json_result = json.loads(response.text)
-
-                if 'results' in json_result and len(json_result['results']) > 0:
-                    best_match = json_result['results'][0]
-                    species_name = best_match['species']['scientificNameWithoutAuthor']
-                    common_name = best_match['species'].get('commonNames', ['Sin nombre común'])[0]
-                    family = best_match['species'].get('family', 'Desconocida')
-                    family = family.get('scientificNameWithoutAuthor', 'Desconocida')
-                    score = best_match.get('score', 0)
-
-                    # Crear un objeto Planta con los datos obtenidos
-                    planta = Planta(common_name, species_name, family, score, image_path)
-                    return planta
+                if response.status_code == 200:
+                    try:
+                        json_result = json.loads(response.text)
+                        if 'results' in json_result and len(json_result['results']) > 0:
+                            best_match = json_result['results'][0]
+                            species_name = best_match['species']['scientificNameWithoutAuthor']
+                            common_name = best_match['species'].get('commonNames', ['Sin nombre común'])[0]
+                            family = best_match['species'].get('family', 'Desconocida')
+                            score = best_match.get('score', 0)
+                            return Planta(common_name, species_name, family, score, image_path)
+                    except json.JSONDecodeError:
+                        print("Error al procesar el JSON.")
                 else:
-                    print("No se encontraron resultados.")
-                    return None
-            else:
-                print(f"Error en la solicitud: {response.status_code}")
-                return None
+                    print(f"Error en la solicitud: {response.status_code}")
+        except requests.exceptions.RequestException as e:
+            print(f"Error en la solicitud HTTP: {e}")
+        except FileNotFoundError:
+            print(f"No se encuentra el archivo: {image_path}")
+        except Exception as e:
+            print(f"Error al analizar la imagen: {e}")
+        return None
 
     def obtener_plantas_por_directorio(self, ruta_directorio):
         """
         Obtiene las imágenes del directorio especificado y devuelve una lista de instancias de Planta.
         """
-        # Obtener las rutas de las imágenes desde la función proporcionada
         rutas_imagenes = self.obtener_rutas_imagenes(ruta_directorio)
-
         plantas = []
         for ruta_imagen in rutas_imagenes:
             planta = self.analizar_imagen(ruta_imagen)
             if planta:
                 plantas.append(planta)
-
-        # Imprimir los resultados de las plantas encontradas
-        for planta in plantas:
-            print(f"Nombre común: {planta.common_name}")
-            print(f"Nombre Cientifico: {planta.scientific_name}")
-            print(f"Descripción: {planta.family}")
-            print(f"Puntuación: {planta.score}")
-            print(f"Ruta de la imagen: {planta.image_path}")
-
         return plantas
-
