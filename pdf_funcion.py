@@ -35,10 +35,10 @@ def crear_pdf(plantas):
 
         agregar_texto(pdf, f"Nombre común: {planta.common_name}",20, diff_y)
         agregar_imagen(pdf, planta.image_path, 20, diff_y + 5, 50, 55)
-        agregar_texto(pdf, f'Best Match {planta.score}',75, diff_y + 35 ) 
         agregar_texto(pdf, f"Nombre Cientifico: {planta.scientific_name}", 75, diff_y + 15)
         agregar_texto(pdf, f"Familia: {planta.family}",75, diff_y + 25 )
-                                                                                                    
+        agregar_texto(pdf, f'Mejor Resultado: {planta.score}',75, diff_y + 35 ) 
+                                                                 
         diff_y += 80  
 
     # GUARDAR

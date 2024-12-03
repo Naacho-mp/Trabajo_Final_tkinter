@@ -5,6 +5,7 @@ from image_utils import cargar_imagen, analizar_imagen, obtener_plantas_por_dire
 from nombre_archivos import obtener_rutas_imagenes
 from pdf_funcion import crear_pdf
 from tkinter import filedialog
+from tkinter import messagebox
 
 #edicion
 
@@ -91,9 +92,13 @@ entrada.config(fg = "black", bg="gray85", font=("Arial", 12))
 entrada.grid(row=2, column=1, padx=35, sticky="e")
 
 def analizar_directorio():
-    ruta = entrada.get()
-    plantas = obtener_plantas_por_directorio(ruta)
-    crear_pdf(plantas)
+    try:
+        ruta = entrada.get()
+        plantas = obtener_plantas_por_directorio(ruta)
+        crear_pdf(plantas)
+    except Exception as ex:
+        messagebox.showerror("Error", f"Ha habido una excepción: {type(ex).__name__}\n{ex}")
+
 
 def seleccionar_directorio():
     ventana.filename = filedialog.askdirectory()
