@@ -19,3 +19,4 @@ def obtener_rutas_imagenes(ruta_directorio):
     return rutas_imagenes
 
 
+print(obtener_rutas_imagenes("C:/Users/nicol/Desktop/5519240445_8746faf3f0_z.jpg"))
