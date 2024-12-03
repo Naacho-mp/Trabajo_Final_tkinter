@@ -10,8 +10,6 @@ from tkinter import filedialog
 
 ventana = tk.Tk() # Acá tenemos nuestro objeto ventana. Es propio del paquete.␣
 
-
-
 ventana.title("Plant Review") # Este es un método
 ventana.geometry("1280x720") # Dimensiones
 ventana.minsize(100, 100)
@@ -47,13 +45,13 @@ titulo.config(fg="black", bg="OliveDrab1", anchor= "w", font=("Times New Roman",
 titulo.grid(row=0, column=0, padx=20, pady=15, sticky="w")  
 
 sub_titulo = tk.Label(ventana, text="Sube tu imagen (planta, arbusto, hierba o flor)")
-sub_titulo.config(fg="black", bg="white", anchor= "w", font=("Times New Roman", 12, "bold"))
+sub_titulo.config(fg="black", bg="white", anchor= "w", font=("Times New Roman", 14, "bold"))
 sub_titulo.grid(row=1, column=0, padx=25, pady=15, sticky="w")  
 
 #FRAME 
 frame1 = tk.Frame(ventana) 
 frame1.configure(width=430, height=90, bg='gray85')
-frame1.grid(row=2, column=0, padx=30, pady=5) 
+frame1.grid(row=2, column=0, padx=20, pady=5) 
 
 #BOTON SUBIR IMAGEN
 boton = tk.Button(ventana, text="Subir ⬆", width=10, height=1, command=cargar_y_mostrar_imagen)
@@ -64,29 +62,33 @@ boton.grid(row=2, column= 0)
 #BOTON 2
 boton2 = tk.Button(ventana, text="Analizar 🔎", width=10, height=1, command=analizar)
 boton2.config(fg="black", bg="OliveDrab1", font=("Times New Roman", 10,"bold"))
-boton2.grid(row=3, column= 0, sticky="w", padx=300)
+boton2.grid(row=3, column= 0, sticky="w", padx=340)
 
+#Resultados titulo
+resultados = tk.Label(ventana, text="Resultados - Análisis")
+resultados.config(fg="black", bg="white", anchor= "w", font=("Times New Roman", 16, "bold"))
+resultados.grid(row=4, column=0, padx=25, pady=5, sticky="w")
 
 
 #FRAME IMAGEN
 frame_imagen = tk.Frame(ventana) 
-frame_imagen.configure(width=350, height=200, bg='gray85')
+frame_imagen.configure(width=450, height=100, bg='gray85')
 frame_imagen.grid(row=6, column=0, padx=150, pady=15)
 
 #TITULO 2
 titulo_2 = tk.Label(ventana, text="Analizar Directorio")
-titulo_2.config(fg="black", bg="white", anchor= "w", font=("Times New Roman", 14, "bold"))
+titulo_2.config(fg="black", bg="white", anchor= "w", font=("Times New Roman", 16, "bold"))
 titulo_2.grid(row=0, column=1, padx=45, pady=5, sticky="we")  
 
 #SUBTITULO DIRECTORIO
 sub_titulo_2 = tk.Label(ventana, text="Ruta del Directorio")
-sub_titulo_2.config(fg="black", bg="white", anchor= "w", font=("Times New Roman", 12))
+sub_titulo_2.config(fg="black", bg="white", anchor= "w", font=("Times New Roman", 14))
 sub_titulo_2.grid(row=1, column=1, padx=45, pady=5, sticky="w")  
 
 #ENTRADA DIRECTORIO
 entrada = tk.Entry(ventana)
 entrada.config(fg = "black", bg="gray85", font=("Arial", 12))
-entrada.grid(row=2, column=1, padx=45, sticky="e")
+entrada.grid(row=2, column=1, padx=35, sticky="e")
 
 def analizar_directorio():
     ruta = entrada.get()
@@ -105,13 +107,24 @@ boton3.grid(row=2, column= 2, sticky="e", padx=10, pady=5)
 
 #Informe
 informe = tk.Label(ventana, text="Informe")
-informe.config(fg="black", bg="white", anchor= "w", font=("Times New Roman", 14, "bold"))
+informe.config(fg="black", bg="white", anchor= "w", font=("Times New Roman", 16, "bold"))
 informe.grid(row=4, column=1, padx=45, pady=15, sticky="we") 
 
 #BOTON GENERAR PDF
 boton3 = tk.Button(ventana, text="Descargar PDF", width=15, height=1, command=analizar_directorio)
 boton3.config(fg="black", bg="OliveDrab1", font=("Times New Roman", 10,"bold"))
 boton3.grid(row=5, column= 1,padx=45, sticky="w") 
+
+# #BOTON GENERAR JSON
+boton4 = tk.Button(ventana, text="Descargar JSON", width=15, height=1, command=analizar_directorio)
+boton4.config(fg="black", bg="OliveDrab1", font=("Times New Roman", 10,"bold"))
+boton4.grid(row=6, column= 1,padx=45, sticky="w") 
+
+# #BOTON GENERAR XML  
+boton5 = tk.Button(ventana, text="Descargar XML", width=15, height=1, command=analizar_directorio)
+boton5.config(fg="black", bg="OliveDrab1", font=("Times New Roman", 10,"bold"))
+boton5.grid(row=7, column= 1,padx=45, sticky="w")
+
 
 
 #INSERTAR IMAGEN
