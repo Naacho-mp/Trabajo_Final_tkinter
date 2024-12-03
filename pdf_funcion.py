@@ -1,5 +1,5 @@
 from fpdf import FPDF
-from testCard import Planta
+from plant_card import Planta
 
 # instalar el fpdf : pip install fpdf
 

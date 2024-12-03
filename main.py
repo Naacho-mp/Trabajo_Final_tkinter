@@ -34,18 +34,22 @@ def cambiar_color():
     ventana.config(bg="chartreuse2")
 
 def analizar():
-    global image_path  # Aquí es donde almacenamos la ruta de la imagen cargada
-    if image_path:
-        analizador = AnalizadorPlantas()
-        planta = analizador.analizar_imagen(image_path)
-        if planta:
-            card = PlantCard(ventana, planta, bg="#f0f0f0", width=250, height=300)
-            card.grid(row=6, column=0, padx=150, pady=15)
+    try:
+        global image_path  # Aquí es donde almacenamos la ruta de la imagen cargada
+        if image_path:
+            analizador = AnalizadorPlantas()
+            planta = analizador.analizar_imagen(image_path)
+            if planta:
+                card = PlantCard(ventana, planta, bg="#f0f0f0", width=250, height=300)
+                card.grid(row=6, column=0, padx=150, pady=15)
+    except Exception as ex:
+        messagebox.showerror("Error", f"No existe imagen para analizar: {type(ex).__name__}\n{ex}")
 
 # Función que se llama cuando se hace clic en el botón de cargar imagen
 def cargar_y_mostrar_imagen():
     global image_path
     image_path = cargar_imagen()
+
 
 def generar_reporte_xml():
     try:
