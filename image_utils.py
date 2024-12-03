@@ -2,6 +2,7 @@ import requests
 import json
 from tkinter import filedialog
 from planta import Planta
+from nombre_archivos import obtener_rutas_imagenes
 
 def cargar_imagen():
     image_path = filedialog.askopenfilename(filetypes=[("Imagenes", "*.jpg;*.jpeg;*.png")])
@@ -47,11 +48,20 @@ def analizar_imagen(image_path):
         return None
 
 
-def analizar_imagenes(rutas_imagenes):
+def obtener_plantas_por_directorio(ruta_directorio):
+    rutas_imagenes = obtener_rutas_imagenes(ruta_directorio)
+
     plantas = []
     for ruta_imagen in rutas_imagenes:
         planta = analizar_imagen(ruta_imagen)
         if planta:
             plantas.append(planta)
-    print(plantas)
+
+    for planta in plantas:
+        print(f"Nombre común: {planta.common_name}")
+        print(f"Nombre Cientifico: {planta.scientific_name}")
+        print(f"Descripción: {planta.family}")
+        print(f"Puntuación: {planta.score}")
+        print(f"Ruta de la imagen: {planta.image_path}")
+
     return plantas

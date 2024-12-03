@@ -1,0 +1,7 @@
+# Ignore files and directories with pyc extension
+*.pyc
+# Ignore files and directories with pyo extension
+*.pyo
+
+
+

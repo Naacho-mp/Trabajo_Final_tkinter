@@ -1,14 +1,21 @@
 from pathlib import Path
 
-ruta = Path('C:/Users/Ignacio/Desktop/plantas')
+def obtener_rutas_imagenes(ruta_directorio):
+    ruta_directorio = Path(ruta_directorio)
+    nombres_archivos = [archivo.name for archivo in ruta_directorio.iterdir() if archivo.is_file()]   
 
-archivos = [archivo.name for archivo in ruta.iterdir()
-            if archivo.is_file()]   
+    nombres_imagenes = []
+    for i in nombres_archivos:
+        if i.endswith(('.jpg', '.png')):
+            nombres_imagenes.append(i)
 
-solo_img = []
+    rutas_imagenes = []
+    for i in nombres_imagenes:
+        rutas_imagenes.append(ruta_directorio / i)
 
-for i in archivos:
-    if i.endswith(('.jpg', '.png')):
-        solo_img.append(i)
+    #convertir rutas a str
+    rutas_imagenes = [str(ruta) for ruta in rutas_imagenes]
 
-print(solo_img)
+    return rutas_imagenes
+
+
