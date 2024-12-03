@@ -61,6 +61,8 @@ class GeneradorReportePDF(GeneradorReporte):
             self.plantas.remove(planta)
         return self
 
+
+"""
 # Ejemplo de uso
 planta1 = Planta("Rosa", "Rosa rubiginosa", "Rosaceae", 0.95, "C:/Users/nicol/Desktop/5519240445_8746faf3f0_z.jpg")
 planta2 = Planta("Tulipán", "Tulipa", "Liliaceae", 0.88, "C:/Users/nicol/Desktop/5519240445_8746faf3f0_z.jpg")
@@ -80,3 +82,4 @@ generador = generador - planta1
 
 # Generar el reporte PDF después de eliminar una planta
 generador.generar_reporte("reporte_actualizado.pdf")
+"""
