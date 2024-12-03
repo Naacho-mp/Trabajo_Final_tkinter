@@ -46,6 +46,7 @@ class AnalizadorPlantas:
                             species_name = best_match['species']['scientificNameWithoutAuthor']
                             common_name = best_match['species'].get('commonNames', ['Sin nombre común'])[0]
                             family = best_match['species'].get('family', 'Desconocida')
+                            family = family.get('scientificNameWithoutAuthor', 'Desconocida')
                             score = best_match.get('score', 0)
                             return Planta(common_name, species_name, family, score, image_path)
                     except json.JSONDecodeError:
