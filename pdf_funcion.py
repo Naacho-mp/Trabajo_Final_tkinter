@@ -40,7 +40,6 @@ def crear_pdf(plantas):
         agregar_texto(pdf, f'Mejor Resultado: {planta.score}',75, diff_y + 35 ) 
                                                                  
         diff_y += 80  
-
     # GUARDAR
     pdf.output('Informe_plantas.pdf')
 
