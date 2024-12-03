@@ -17,7 +17,7 @@ def cargar_imagen():
     if image_path:
         # Cargar la imagen con PIL
         image = Image.open(image_path)
-        image = image.resize((200, 200))  # Redimensionar la imagen para que quepa en el espacio disponible
+        image = image.resize((100, 100))  # Redimensionar la imagen para que quepa en el espacio disponible
         photo = ImageTk.PhotoImage(image)
         
         # Mostrar la imagen en el label
