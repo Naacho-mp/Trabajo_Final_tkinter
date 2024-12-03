@@ -1,13 +1,19 @@
 import tkinter as tk
 from planta import Planta
 from plant_card import PlantCard
-from image_utils import cargar_imagen, analizar_imagen, obtener_plantas_por_directorio
-from nombre_archivos import obtener_rutas_imagenes
+from image_utils import analizar_imagen, obtener_plantas_por_directorio
+from obtener_rutas import obtener_rutas_imagenes
 from pdf_funcion import crear_pdf
 from tkinter import filedialog
 from tkinter import messagebox
 
 #edicion
+
+def cargar_imagen():
+    image_path = filedialog.askopenfilename(filetypes=[("Imagenes", "*.jpg;*.jpeg;*.png")])
+    return image_path
+
+
 
 ventana = tk.Tk() # Acá tenemos nuestro objeto ventana. Es propio del paquete.␣
 
